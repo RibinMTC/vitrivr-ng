@@ -10,7 +10,6 @@
   "competition": {
     "teamid": 2,
     "toolid": 1,
-    "sessionid": "yoursessionid",
     "endpoint": "https://interactivevideoretrieval.com/",
     "log": false,
     "lsc": false,
@@ -48,8 +47,7 @@
   "refinement": {
     "filters": [
       ["dominantcolor.color", "CHECKBOX"],
-      ["technical.duration", "SLIDER"],
-      ["LSCMETA.semantic_name", "CHECKBOX"]
+      ["technical.duration", "SLIDER"]
     ]
   }
 }
