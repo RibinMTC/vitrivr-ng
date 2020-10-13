@@ -1,8 +1,9 @@
 import {Component, Injectable, Input, OnInit} from '@angular/core';
 import {BoolQueryTerm} from '../../../../shared/model/queries/bool-query-term.model';
-import {BoolAttribute, BoolOperator, ValueType} from '../bool-attribute';
+import {BoolAttribute, BoolOperator, SortType, ValueType} from '../bool-attribute';
 import {BehaviorSubject, Observable} from 'rxjs/Rx';
 import {BoolTerm} from './bool-term';
+import {SortingOptionShareService} from '../../../../services/sorting-option-share-service';
 
 @Component({
   selector: 'app-qt-bool-component',
@@ -28,7 +29,13 @@ export class BoolTermComponent implements OnInit {
   /** Currently selected operator */
   currentOperator: BoolOperator;
 
+  /**Currently Selected sort type */
+  currentSortType: SortType
+
   private _value: any[] = [];
+
+  constructor(private sortingOptionSharingService: SortingOptionShareService) {
+  }
 
   get currentAttribute(): Observable<BoolAttribute> {
     return this.currentAttributeObservable;
@@ -60,6 +67,29 @@ export class BoolTermComponent implements OnInit {
    */
   set operatorValue(value: BoolOperator) {
     this.currentOperator = value;
+    this.updateTerm();
+  }
+
+  /**
+   * get sorting type for the range query
+   */
+  get sortingValue(): SortType {
+    if (this.currentSortType == null) {
+      return SortType.DESCENDING;
+    }
+    return this.currentSortType;
+  }
+
+  /**
+   * Updates both the variable storing the current sorting type
+   */
+  set sortingValue(value: SortType) {
+    this.currentSortType = value;
+    let sortDescending = false;
+    if (this.currentSortType === SortType.DESCENDING) {
+      sortDescending = true;
+    }
+    this.sortingOptionSharingService.setCurrentSortingOption(sortDescending)
     this.updateTerm();
   }
 

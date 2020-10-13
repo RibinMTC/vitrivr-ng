@@ -95,8 +95,8 @@ export abstract class AbstractResultsViewComponent<T> implements OnInit, OnDestr
   public backgroundForScore(score: number, segment: SegmentScoreContainer): string {
     const tags: Tag[] = this._selectionService.getTags(segment.segmentId);
     if (tags.length === 0) {
-      const v = Math.round(255.0 - (score * 255.0));
-      return ColorUtil.rgbToHex(v, 255, v);
+      const v = 220; // Math.round(255.0 - (score * 255.0)) * 0.2;
+      return ColorUtil.rgbToHex(v, v, v);
     } else if (tags.length === 1) {
       return tags[0].colorForRelevance(score);
     } else {

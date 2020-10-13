@@ -1,10 +1,11 @@
 {
   "api": {
-    "host" : "default"
+    "host" : "localhost",
+    "port" : 4567
   },
   "resources": {
-    "host_thumbnails" : "http://10.34.58.178/V3C1/V3C1jpg/:o/:s.jpg",
-    "host_objects": "http://10.34.58.178/V3C1/video/:o.mp4"
+    "host_thumbnails" : "http://localhost:4567/thumbnails/:s",
+    "host_objects": "http://localhost:4567/objects/:o"
   },
   "competition": {
     "teamid": 2,
@@ -30,7 +31,7 @@
       "text": true,
       "tag": true,
       "semantic": true,
-      "boolean": false
+      "boolean": true
     },
     "text": {
       "categories": [
@@ -40,10 +41,7 @@
       ]
     },
     "boolean": [
-      ["Example Freetext", "TEXT", "features_daily.text"],
-      ["Example Dropdown", "OPTIONS", "features.option", "ONE", "TWO", "THREE"],
-      ["Example Range", "RANGE", "features.range", 5, 20],
-      ["Example Dynamic Options", "DYNAMICOPTIONS", "features.option", "features", "option"]
+      ["Aesthetic Score", "RANGE", "features_aestheticscore.feature", 2, 8]
     ],
     "staged": true
   },

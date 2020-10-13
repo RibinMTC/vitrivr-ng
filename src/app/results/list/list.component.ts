@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
 import {MediaObjectScoreContainer} from '../../shared/model/results/scores/media-object-score-container.model';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {ResultsContainer} from '../../shared/model/results/scores/results-container.model';
 import {AbstractSegmentResultsViewComponent} from '../abstract-segment-results-view.component';
 import {SegmentScoreContainer} from '../../shared/model/results/scores/segment-score-container.model';
@@ -14,6 +14,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {ResolverService} from '../../core/basics/resolver.service';
 import {MatDialog} from '@angular/material/dialog';
 import {VbsSubmissionService} from '../../core/vbs/vbs-submission.service';
+import {SortingOptionShareService} from '../../services/sorting-option-share-service';
 
 @Component({
   selector: 'app-list',
@@ -22,6 +23,9 @@ import {VbsSubmissionService} from '../../core/vbs/vbs-submission.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListComponent extends AbstractSegmentResultsViewComponent<MediaObjectScoreContainer[]> {
+
+  sortingOption = true;
+  private sortingOptionSubscription: Subscription;
 
   constructor(_cdr: ChangeDetectorRef,
               _queryService: QueryService,
@@ -33,10 +37,21 @@ export class ListComponent extends AbstractSegmentResultsViewComponent<MediaObje
               _snackBar: MatSnackBar,
               _resolver: ResolverService,
               _dialog: MatDialog,
-              _vbs: VbsSubmissionService
+              _vbs: VbsSubmissionService,
+              private sortingOptionSharingService: SortingOptionShareService
   ) {
     super(_cdr, _queryService, _filterService, _selectionService, _eventBusService, _router, _snackBar, _configService, _resolver, _dialog, _vbs);
     this._count = this.scrollIncrement() * 5;
+  }
+
+  ngOnInit() {
+    super.ngOnInit();
+    this.sortingOptionSubscription = this.sortingOptionSharingService.getCurrentSortingOption().subscribe(sortingOption => this.sortingOption = sortingOption)
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
+    this.sortingOptionSubscription.unsubscribe()
   }
 
   /** Name of this ListComponent. */

@@ -1,4 +1,4 @@
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {SegmentScoreContainer} from '../shared/model/results/scores/segment-score-container.model';
 import {ResultsContainer} from '../shared/model/results/scores/results-container.model';
 import {AbstractResultsViewComponent} from './abstract-results-view.component';
@@ -13,6 +13,7 @@ import {ConfigService} from '../core/basics/config.service';
 import {ResolverService} from '../core/basics/resolver.service';
 import {MatDialog} from '@angular/material/dialog';
 import {VbsSubmissionService} from '../core/vbs/vbs-submission.service';
+import {SortingOptionShareService} from '../services/sorting-option-share-service';
 
 /**
  * More specialized AbstractResultsView, tailored for views which display segments
@@ -29,10 +30,10 @@ export abstract class AbstractSegmentResultsViewComponent<T> extends AbstractRes
                         protected _configService: ConfigService,
                         public _resolver: ResolverService,
                         protected _dialog: MatDialog,
-                        protected _vbs: VbsSubmissionService) {
+                        protected _vbs: VbsSubmissionService
+  ) {
     super(_cdr, _queryService, _filterService, _selectionService, _eventBusService, _router, _snackBar);
   }
-
 
   /**
    * Getter for the filters that should be applied to SegmentScoreContainer.

@@ -25,6 +25,8 @@
 
     <div>
       <dl>
+        <dt>Aesthetic Score</dt>
+        <dd>{{(mediaobject|async).score *10 | number : '1.0-3' }}</dd>
         <dt>ID</dt>
         <dd>{{(mediaobject|async).objectId}}</dd>
         <dt>Filename</dt>

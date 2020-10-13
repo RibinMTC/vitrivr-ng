@@ -47,6 +47,13 @@
                         [options]="currentAttrAsync.sliderOptions"></ng5-slider>
         </div>
 
+        <!-- Sorting Options for Range -->
+        <mat-select *ngIf="currentAttrAsync.valueType.valueOf()==4" [(ngModel)]="sortingValue" class="options">
+            <mat-option *ngFor="let sortingOption of currentAttrAsync.sortingOptions" [value]="sortingOption" class="options"
+                        style="width:100%">
+                {{sortingOption.toString()}}
+            </mat-option>
+        </mat-select>
         <!-- Traditional Slider
         <mat-slider class="options" *ngIf="currentAttrAsync.valueType.valueOf()==4"
                     thumbLabel [displayWith]="formatLabel" tickInterval="auto" min="currentAttrAsync.range[0]" max="currentAttrAsync.range[1]" [(ngModel)]="inputValue">

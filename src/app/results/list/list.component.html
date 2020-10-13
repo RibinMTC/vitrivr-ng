@@ -11,7 +11,7 @@
          [infiniteScrollDistance]="1" [infiniteScrollUpDistance]="2" class="list"
          infiniteScroll>
         <ng-container
-                *ngIf="((((dataSource | async) | FilterPipe : (objectFilter|async)) | OrderByScorePipe) | LimitObjectsPipe : count) as pipeRes">
+                *ngIf="((((dataSource | async) | FilterPipe : (objectFilter|async)) | OrderByScorePipe:sortingOption) | LimitObjectsPipe : count) as pipeRes">
             <div
                     *ngFor="let mediaobject of pipeRes[0]; trackBy: trackByFunction; last as lastObject"
                     class="object">

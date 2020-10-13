@@ -26,6 +26,11 @@ export enum ValueType {
   DYNAMICOPTIONS = 5,
 }
 
+export enum SortType {
+  DESCENDING = 'SORT DESCENDING',
+  ASCENDING = 'SORT ASCENDING',
+}
+
 export class BoolAttribute {
 
   public readonly displayName: string;
@@ -37,6 +42,7 @@ export class BoolAttribute {
   public minValue: number;
   public maxValue: number;
   public readonly featureName: string;
+  public readonly sortingOptions: SortType[];
 
   public get options(): string[] {
     return this._options;
@@ -71,6 +77,7 @@ export class BoolAttribute {
       };
       this.minValue = this.sliderOptions.floor;
       this.maxValue = this.sliderOptions.ceil;
+      this.sortingOptions = [SortType.DESCENDING, SortType.ASCENDING];
     }
   }
 
