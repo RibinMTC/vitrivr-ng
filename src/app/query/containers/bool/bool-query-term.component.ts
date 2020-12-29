@@ -51,7 +51,7 @@ export class BoolQueryTermComponent implements OnInit {
             next.push(new BoolAttribute(displayName, feature, ValueType[<string>v[1]], null, v.slice(3, v.length), null));
             break;
           case ValueType.RANGE.valueOf():
-            next.push(new BoolAttribute(displayName, feature, ValueType[<string>v[1]], null, null, [v[3], v[4]]));
+            next.push(new BoolAttribute(displayName, feature, ValueType[<string>v[1]], null, null, [v[3], v[4]], v[5]));
             break;
           case ValueType.DYNAMICOPTIONS.valueOf():
             const table: string = v[3];

@@ -40,7 +40,12 @@
       ]
     },
     "boolean": [
-      ["Aesthetic Score", "RANGE", "features_aestheticscore.feature", 2, 8]
+      ["Hecate Brightness", "RANGE", "features_hecate_image_metrics.brightness", 0, 1, 0.1],
+      ["Hecate Sharpness", "RANGE", "features_hecate_image_metrics.sharpness", 0, 1, 0.1],
+      ["Hecate Asymmetry", "RANGE", "features_hecate_image_metrics.asymmetry", 0, 1, 0.1],
+      ["Aesthetic Score", "RANGE", "features_aesthetic_score.aestheticScore", 2, 8, 1],
+      ["Facial Emotion", "OPTIONS", "features_facial_emotion.facialEmotion", "angry", "fear", "sad", "neutral", "none", "happy", "surprise"],
+      ["Random Score", "OPTIONS", "features_randomaestheticscore.feature", "angry", "fear", "sad", "neutral","surprise","disgust"]
     ],
     "staged": true
   },

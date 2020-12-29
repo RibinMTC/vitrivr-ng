@@ -56,7 +56,7 @@ export class BoolAttribute {
    * @param options for the Options ValueType, a list of strings can be provided which will be displayed in a dropdown
    * @param range for the Between ValueType, two numbers can be provided. A slider will enable to user to set the desired range.
    */
-  constructor(displayName: string, featureName: string, valueType: ValueType, operators?: BoolOperator[], options?: string[], range?: [number, number]) {
+  constructor(displayName: string, featureName: string, valueType: ValueType, operators?: BoolOperator[], options?: string[], range?: [number, number], step?: number) {
     this.displayName = displayName;
     this.featureName = featureName;
     this.valueType = valueType;
@@ -74,6 +74,7 @@ export class BoolAttribute {
         floor: range[0],
         ceil: range[1],
         animate: false,
+        step: step
       };
       this.minValue = this.sliderOptions.floor;
       this.maxValue = this.sliderOptions.ceil;

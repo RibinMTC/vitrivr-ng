@@ -25,8 +25,6 @@
 
     <div>
       <dl>
-        <dt>Aesthetic Score</dt>
-        <dd>{{(mediaobject|async).score *10 | number : '1.0-3' }}</dd>
         <dt>ID</dt>
         <dd>{{(mediaobject|async).objectId}}</dd>
         <dt>Filename</dt>
@@ -62,9 +60,12 @@
             <button (click)="onMltClick(segment)" mat-icon-button matTooltip="More-like-this">
               <mat-icon>youtube_searched_for</mat-icon>
             </button>
-            <button (click)="onInformationButtonClicked(segment)" mat-icon-button matTooltip="Metadata">
-              <mat-icon>help</mat-icon>
+            <button (click)="onAestheticDetailsButtonClicked(segment)" mat-icon-button matTooltip="Show Aesthetic Information">
+              <mat-icon>photo</mat-icon>
             </button>
+         <!--   <button (click)="onInformationButtonClicked(segment)" mat-icon-button matTooltip="Metadata">
+              <mat-icon>help</mat-icon>
+            </button> -->
           </div>
         </div>
       </div>

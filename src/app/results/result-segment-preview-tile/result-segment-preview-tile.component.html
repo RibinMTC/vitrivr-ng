@@ -23,11 +23,13 @@
   </div>
 
   <div *ngIf="inFocus" class="footer" fxLayout="row" fxLayoutAlign="space-evenly">
-    <button (click)="onSubmitButtonClicked()" *ngIf="(showVbsSubmitButton() | async)"
+   <!-- <button (click)="onSubmitButtonClicked()" *ngIf="(showVbsSubmitButton() | async)"
             mat-icon-button matTooltip="Submit segment to VBS">
       <mat-icon>send</mat-icon>
+    </button> -->
+    <button (click)="container.onAestheticDetailsButtonClicked(segment)" mat-icon-button matTooltip="Show Aesthetic Information">
+      <mat-icon>photo</mat-icon>
     </button>
-
     <button (click)="container.onDetailsButtonClicked(segment)" mat-icon-button matTooltip="Show details">
       <mat-icon>remove_red_eye</mat-icon>
     </button>

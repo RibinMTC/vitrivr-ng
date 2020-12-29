@@ -6,8 +6,8 @@ import {MediaObject} from '../shared/model/media/media-object.model';
 import {ResolverService} from '../core/basics/resolver.service';
 import {SegmentScoreContainer} from '../shared/model/results/scores/segment-score-container.model';
 import {Location} from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import {MediaObjectScoreContainer} from '../shared/model/results/scores/media-object-score-container.model';
 import {MediaSegmentDragContainer} from '../shared/model/internal/media-segment-drag-container.model';
 import {MediaObjectDragContainer} from '../shared/model/internal/media-object-drag-container.model';
@@ -108,6 +108,10 @@ export class ObjectdetailsComponent {
       this.videoplayer.nativeElement.currentTime = segment.startabs;
       this.videoplayer.nativeElement.play();
     }
+  }
+
+  public onAestheticDetailsButtonClicked(segment: SegmentScoreContainer) {
+    window.open('http://localhost:5003/aesthetic_details/' + segment.segmentId, '_blank')
   }
 
   /**

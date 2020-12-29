@@ -216,6 +216,9 @@ export abstract class AbstractResultsViewComponent<T> implements OnInit, OnDestr
     event.preventDefault();
   }
 
+  public onAestheticDetailsButtonClicked(segment: SegmentScoreContainer) {
+    window.open('http://localhost:5003/aesthetic_details/' + segment.segmentId, '_blank')
+  }
 
   /**
    * Whenever a tile is dragged the associated segment and the media object that tile represents is converted to JSON and added to the dataTransfer object of the drag event.
