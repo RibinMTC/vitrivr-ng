@@ -1,11 +1,11 @@
 {
   "api": {
-    "host" : "localhost",
+    "host" : "default",
     "port" : 4567
   },
   "resources": {
-    "host_thumbnails" : "http://localhost:4567/thumbnails/:s",
-    "host_objects": "http://localhost:4567/objects/:o"
+    "host_thumbnails" : "http://129.132.62.166:4567/thumbnails/:s",
+    "host_objects": "http://129.132.62.166:4567/objects/:o"
   },
   "competition": {
     "teamid": 2,
@@ -44,8 +44,7 @@
       ["Hecate Sharpness", "RANGE", "features_hecate_image_metrics.sharpness", 0, 1, 0.1],
       ["Hecate Asymmetry", "RANGE", "features_hecate_image_metrics.asymmetry", 0, 1, 0.1],
       ["Aesthetic Score", "RANGE", "features_aesthetic_score.aestheticScore", 2, 8, 1],
-      ["Facial Emotion", "OPTIONS", "features_facial_emotion.facialEmotion", "angry", "fear", "sad", "neutral", "none", "happy", "surprise"],
-      ["Random Score", "OPTIONS", "features_randomaestheticscore.feature", "angry", "fear", "sad", "neutral","surprise","disgust"]
+      ["Facial Emotion", "OPTIONS", "features_facial_emotion_vector.facialEmotions", "angry", "fear", "sad", "neutral", "none", "happy", "surprise"]
     ],
     "staged": true
   },
