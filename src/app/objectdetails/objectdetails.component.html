@@ -24,18 +24,21 @@
     </div>
 
     <div>
-      <dl>
+      <dl #objectDetailsList>
         <dt>ID</dt>
         <dd>{{(mediaobject|async).objectId}}</dd>
-        <dt>Filename</dt>
+    <!--    <dt>Filename</dt>
         <dd>{{(mediaobject|async).name}}</dd>
         <dt>Path</dt>
         <dd><a download href="{{_resolver.pathToObject((mediaobject|async))}}">{{((mediaobject|async)).path}}</a></dd>
         <dt>Mediatype</dt>
-        <dd>{{(mediaobject|async).mediatype}}</dd>
+        <dd>{{(mediaobject|async).mediatype}}</dd>-->
       </dl>
     </div>
   </div>
+
+
+
 
   <mat-tab-group>
     <mat-tab label="Segments ({{(mediaobject|async).segments.length}})">
@@ -60,9 +63,9 @@
             <button (click)="onMltClick(segment)" mat-icon-button matTooltip="More-like-this">
               <mat-icon>youtube_searched_for</mat-icon>
             </button>
-            <button (click)="onAestheticDetailsButtonClicked(segment)" mat-icon-button matTooltip="Show Aesthetic Information">
+        <!--    <button (click)="onAestheticDetailsButtonClicked(segment)" mat-icon-button matTooltip="Show Aesthetic Information">
               <mat-icon>photo</mat-icon>
-            </button>
+            </button>-->
          <!--   <button (click)="onInformationButtonClicked(segment)" mat-icon-button matTooltip="Metadata">
               <mat-icon>help</mat-icon>
             </button> -->

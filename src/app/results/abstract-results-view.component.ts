@@ -144,7 +144,7 @@ export abstract class AbstractResultsViewComponent<T> implements OnInit, OnDestr
    * @param segment SegmentScoreContainer for which details should be displayed.
    */
   public onDetailsButtonClicked(segment: SegmentScoreContainer) {
-    this._router.navigate(['/mediaobject/' + segment.objectId], {skipLocationChange: true});
+    this._router.navigate(['/mediaobject/' + segment.objectId], {skipLocationChange: true, queryParams : { selectedSegmentId : segment.segmentId}});
 
     /* Emit an EXAMINE event on the bus. */
     const context: Map<ContextKey, any> = new Map();
@@ -214,10 +214,6 @@ export abstract class AbstractResultsViewComponent<T> implements OnInit, OnDestr
       this._eventBusService.publish(new InteractionEvent(new InteractionEventComponent(InteractionEventType.HIGHLIGHT, context)));
     }
     event.preventDefault();
-  }
-
-  public onAestheticDetailsButtonClicked(segment: SegmentScoreContainer) {
-    window.open('http://localhost:5003/aesthetic_details/' + segment.segmentId, '_blank')
   }
 
   /**

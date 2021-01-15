@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MetadataLookupService} from '../core/lookup/metadata-lookup.service';
 import {QueryService} from '../core/queries/query.service';
@@ -11,7 +11,7 @@ import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import {MediaObjectScoreContainer} from '../shared/model/results/scores/media-object-score-container.model';
 import {MediaSegmentDragContainer} from '../shared/model/internal/media-segment-drag-container.model';
 import {MediaObjectDragContainer} from '../shared/model/internal/media-object-drag-container.model';
-import {EMPTY, Observable} from 'rxjs';
+import {EMPTY, Observable, Subscription} from 'rxjs';
 import {HtmlUtil} from '../shared/util/html.util';
 import {catchError, filter, map, tap} from 'rxjs/operators';
 import {ContextKey, InteractionEventComponent} from '../shared/model/events/interaction-event-component.model';
@@ -20,6 +20,8 @@ import {InteractionEventType} from '../shared/model/events/interaction-event-typ
 import {EventBusService} from '../core/basics/event-bus.service';
 import {MetadataDetailsComponent} from './metadata-details.component';
 import {PreviousRouteService} from '../core/basics/previous-route.service';
+import {HttpClient} from '@angular/common/http';
+import {ConfigService} from '../core/basics/config.service';
 
 @Component({
   selector: 'objectdetails',
@@ -39,8 +41,15 @@ export class ObjectdetailsComponent {
   @ViewChild('imageviewer')
   private imageviewer: any;
 
+  @ViewChild('objectDetailsList')
+  private objectDetailsList: ElementRef
+
   /** The observable that provides the MediaObjectMetadata for the active object. */
   private _mediaObjectObservable: Observable<MediaObjectScoreContainer>;
+
+  private _aestheticEndPoint: string;
+  private _selectedSegmentId: string;
+  private _segmentIdChangedObservable: Subscription
 
   constructor(private _route: ActivatedRoute,
               private _router: Router,
@@ -51,7 +60,10 @@ export class ObjectdetailsComponent {
               private _location: Location,
               private _resolver: ResolverService,
               private _dialog: MatDialog,
-              private _historyService: PreviousRouteService) {
+              private _historyService: PreviousRouteService,
+              private renderer: Renderer2,
+              private http: HttpClient,
+              _configService: ConfigService) {
 
 
     /** Generate observables required to create the view. */
@@ -72,6 +84,25 @@ export class ObjectdetailsComponent {
     this._mediaObjectObservable = objectIdObservable.pipe(
       map(objectId => _query.results.getObject(objectId))
     );
+
+    _configService.subscribe(c => {
+      this._aestheticEndPoint = c._config.aestheticConfig.endpoint
+    });
+  }
+
+  ngOnInit() {
+    this._segmentIdChangedObservable = this._route
+      .queryParams
+      .subscribe(params => {
+        // Defaults to 0 if no query param provided.
+        this._selectedSegmentId = params['selectedSegmentId']
+        this.getAndShowAestheticDetails(this._selectedSegmentId)
+        console.log('Received param from route: ' + this._selectedSegmentId)
+      });
+  }
+
+  ngOnDestroy() {
+    this._segmentIdChangedObservable.unsubscribe();
   }
 
   /**
@@ -111,7 +142,39 @@ export class ObjectdetailsComponent {
   }
 
   public onAestheticDetailsButtonClicked(segment: SegmentScoreContainer) {
-    window.open('http://localhost:5003/aesthetic_details/' + segment.segmentId, '_blank')
+    this.getAndShowAestheticDetails(segment.segmentId)
+
+    // window.open('http://localhost:5003/aesthetic_details/' + segment.segmentId, '_blank')
+  }
+
+  private getAndShowAestheticDetails(segmentId: string) {
+    if (this._aestheticEndPoint == null) {
+      console.log('No aestheticDetail Endpoint specified. Cannot show details!')
+      return
+    }
+
+    this.http.get<any>(this._aestheticEndPoint + segmentId).subscribe(data => {
+      this.showAestheticsDetails(data)
+    })
+  }
+
+  private showAestheticsDetails(data: any) {
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        this.appendAestheticsDetails(key, JSON.stringify(data[key]));
+      }
+    }
+  }
+
+  private appendAestheticsDetails(key: string, value: string) {
+    const dt = this.renderer.createElement('dt');
+    const text = this.renderer.createText(key);
+    const dd = this.renderer.createElement('dd');
+    const textTest = this.renderer.createText(value.slice(1, -1));
+    this.renderer.appendChild(dt, text);
+    this.renderer.appendChild(dd, textTest);
+    this.renderer.appendChild(this.objectDetailsList.nativeElement, dt);
+    this.renderer.appendChild(this.objectDetailsList.nativeElement, dd);
   }
 
   /**

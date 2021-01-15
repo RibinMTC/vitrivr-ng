@@ -16,6 +16,7 @@ import {EvaluationModule} from './evaluation/evaluation.module';
 import {MaterialModule} from './material.module';
 import {ResultsModule} from './results/results.module';
 
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import {ResultsModule} from './results/results.module';
     ObjectdetailsModule,
     SettingsModule,
     QuerySidebarModule,
+    HttpClientModule
   ],
   declarations: [AppComponent, PingComponent],
   providers: [],

@@ -41,6 +41,9 @@ export class Config {
       active: false,
       templates: [] /* URLs */
     },
+    aestheticConfig: {
+      endpoint: null
+    },
     competition: {
       /* The team number within the competition contest. */
       teamid: null,
@@ -127,8 +130,9 @@ export class Config {
    * @param tags Optional tag configurations as, e.g. loaded from a file.
    * @param mlt Optional More-Like-This categories as, e.g. loaded from a file.
    * @param refinement Optional refinement configuration
+   * @param aestheticConfig Optional configuration to show aesthetic details of a segment
    */
-  constructor(api?: any, resources?: any, evaluation?: any, query?: QuerySettings, competition?: any, tags?: Tag[], mlt?: FeatureCategories[], refinement?: any) {
+  constructor(api?: any, resources?: any, evaluation?: any, query?: QuerySettings, competition?: any, tags?: Tag[], mlt?: FeatureCategories[], refinement?: any,  aestheticConfig?: any) {
     const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray;
     if (api) {
       this._config.api = DEEPMERGE(this._config.api, api, {arrayMerge: overwriteMerge});
@@ -153,6 +157,9 @@ export class Config {
     }
     if (refinement) {
       this._config.refinement = DEEPMERGE(this._config.refinement, refinement, {arrayMerge: overwriteMerge});
+    }
+    if (aestheticConfig) {
+      this._config.aestheticConfig = DEEPMERGE(this._config.aestheticConfig, aestheticConfig, {arrayMerge: overwriteMerge});
     }
     if (this._config.api.host === 'default') {
       this._config.api.host = window.location.hostname
@@ -195,8 +202,8 @@ export class Config {
     if (typeof object === 'string') {
       object = JSON.parse(object);
     }
-    if (object['api'] || object['resources'] || object['evaluation'] || object['query'] || object['competition'] || object['tags'] || object['mlt'] || object['refinement']) {
-      return new Config(object['api'], object['resources'], object['evaluation'], object['query'], object['competition'], object['tags'], object['mlt'], object['refinement']);
+    if (object['api'] || object['resources'] || object['evaluation'] || object['query'] || object['competition'] || object['tags'] || object['mlt'] || object['refinement'] || object['aestheticConfig']) {
+      return new Config(object['api'], object['resources'], object['evaluation'], object['query'], object['competition'], object['tags'], object['mlt'], object['refinement'], object['aestheticConfig']);
     } else {
       return null;
     }

@@ -7,6 +7,9 @@
     "host_thumbnails" : "http://129.132.62.166:4567/thumbnails/:s",
     "host_objects": "http://129.132.62.166:4567/objects/:o"
   },
+  "aestheticConfig": {
+    "endpoint": "http://localhost:5003/aesthetic_details/"
+  },
   "competition": {
     "teamid": 2,
     "toolid": 1,
@@ -44,7 +47,7 @@
       ["Hecate Sharpness", "RANGE", "features_hecate_image_metrics.sharpness", 0, 1, 0.1],
       ["Hecate Asymmetry", "RANGE", "features_hecate_image_metrics.asymmetry", 0, 1, 0.1],
       ["Aesthetic Score", "RANGE", "features_aesthetic_score.aestheticScore", 2, 8, 1],
-      ["Facial Emotion", "OPTIONS", "features_facial_emotion_vector.facialEmotions", "angry", "fear", "sad", "neutral", "none", "happy", "surprise"]
+      ["Facial Emotion", "OPTIONS", "features_facial_emotion.facialEmotions", "angry", "fear", "sad", "neutral", "none", "happy", "surprise"]
     ],
     "staged": true
   },
