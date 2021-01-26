@@ -4,8 +4,8 @@
     "port" : 4567
   },
   "resources": {
-    "host_thumbnails" : "http://129.132.62.166:4567/thumbnails/:s",
-    "host_objects": "http://129.132.62.166:4567/objects/:o"
+    "host_thumbnails" : "http://localhost:4567/thumbnails/:s",
+    "host_objects": "http://localhost:4567/objects/:o"
   },
   "aestheticConfig": {
     "endpoint": "http://localhost:5003/aesthetic_details/"
